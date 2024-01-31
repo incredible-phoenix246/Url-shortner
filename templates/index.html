@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>URL Shortner</title>
+        <style>
+
+            *{
+                margin: 0;
+                padding: 0;
+            }
+
+            main {
+                background-color: #264653;
+                width: 100%;
+                height: 100vh;
+                font-family: "Avenir", sans-serif;
+                }
+
+                #header-div {
+                width: 60%;
+                margin: auto;
+                padding-top: 100px;
+                text-align: center;
+                font-family: "Josefin Sans", sans-serif;
+                color: #e9c46a;
+                font-size: 40px;
+                }
+
+                /* #content-div {
+                display: flex;
+                flex-direction: column;
+                width: 80%;
+                margin: auto;
+                } */
+
+                #input-div {
+                width: 100%;
+                margin: auto;
+                margin-bottom: 25px;
+                /* display: flex; */
+                /* flex-direction: row; */
+                align-items: center;
+                justify-content: space-between;
+                /* background-color: #e9c46a; */
+                }
+
+                #input-div form {
+                    text-align: center;
+                    margin: 10px 0;
+                }
+
+                .bot{
+                    display: flex;
+                    align-items: center;
+                    /* justify-content: space-between; */
+                    margin: 10px 20px;
+                }
+
+                .bot button:first-child{  
+                    width: 50%;
+                }
+
+                .bot button:last-child{
+                    width: 50%;
+                }
+
+                #output-div {
+                display: flex;
+                flex-direction: row;
+                width: 80%;
+                justify-content: space-between;
+                background-color: #e9c46a;
+                margin: auto;
+                padding: 5px;
+                border: 3px solid #e9c46a;
+                border-radius: 10px;
+                align-items: center;
+                margin-bottom: 100px;
+                }
+
+                /* #error-div {
+                width: 80%;
+                margin: auto;
+                color: #e76f51;
+                font-style: italic;
+                font-size: 18px;
+                text-align: center;
+                } */
+
+                /* .content-row {
+                display: flex;
+                } */
+
+                input[type=url] {
+                width: 70%;
+                font-size: 18px;
+                padding: 10px;
+                border: 1px solid white;
+                border-radius: 10px;
+                }
+
+
+                .button {
+                background-color: #2a9d8f;
+                color: white;
+                align-items: center;
+                justify-content: center;
+                font-size: 18px;
+                border: 1px solid #2a9d8f;
+                border-radius: 10px;
+                padding: 10px;
+                margin-left: 5px;
+                display: flex;
+                transition-duration: 0.2s;
+                }
+
+                .button:hover {
+                background-color: #297c74;
+                }
+
+                #new-url {
+                display: flex;
+                color: black;
+                padding: 5px;
+                font-size: 24px;
+                }
+
+                #new-url-label {
+                font-size: 18px;
+                display: flex;
+
+                }
+
+        </style>
+    </head>
+
+    <body>
+        <main>
+            <div id="header-div" class="">
+                <h1 class="" style="text-align: center; padding-top: -15px;">URL Shortener</h1>
+            </div>
+            <!-- link input and shorten button -->
+            <div id="content-div">
+                <div id="input-div">
+                    <form id="urlForm" method="post">
+                        {% csrf_token %}
+                        <input type="url" class="text-field content-row" placeholder="Enter URL here . . ." id="input-field" name="long_url" required/>
+                        <div class="bot">
+                            <button id="shorten" type="submit" class="content-row button">
+                                Shorten URL
+                            </button>
+                            <button type="reset" id="clear-btn" class="content-row button">
+                                Clear
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <!-- Output and copy -->
+                <div id="output-div">
+                    <div class="content-row" id="new-url-label">
+                        
+                    </div>
+                    <div id="nw-url" class="content-row">
+                        <a href="{{ shortened_url }}" target="_blank">
+                            <h3 id="contentToCopy">
+                                {{ shortened_url }}
+                            </h3>
+                        </a>
+                    </div>
+                    <button type="button" id="cpy-btn" onclick="copyToClipboard(document.getElementById('contentToCopy').innerText)" data-clipboard-target="#new-url" class="content-row button">
+                        Copy
+                    </button>
+                </div>
+                <div class="" id="error-div">
+                    <p class="content-row" id="error-text"></p>
+                </div>
+            </div>
+        
+        </main>
+
+        <script>
+            // document.getElementById('urlForm').addEventListener('submit', function() {
+            // event.preventDefault(); // Prevent form submission
+            
+            // const sh = document.getElementById("output-div");
+            // sh.style.display = "flex";
+            // });
+
+            function copyToClipboard(text) {
+                const el = document.createElement('textarea');
+                el.value = text;
+                document.body.appendChild(el);
+                el.select();
+                document.execCommand('copy');
+                document.body.removeChild(el);
+                alert('Copied to clipboard: ' + text);
+            }
+        </script> 
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
